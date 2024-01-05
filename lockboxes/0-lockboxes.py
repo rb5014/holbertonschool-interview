@@ -29,6 +29,3 @@ def canUnlockAll(boxes):
 
 	# Each keys have been found in another box, so all boxes could be read
 	return True
-	
-	
-	
