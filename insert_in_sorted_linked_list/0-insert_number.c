@@ -35,10 +35,7 @@ listint_t *insert_node(listint_t **head, int number)
 			current = current->next;
 		}
 		if (current->next == NULL)
-		{
-			free(new);
-			add_nodeint_end(head, number);
-		}
+			current->next = new;
     }
 
     return (new);
