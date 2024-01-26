@@ -17,13 +17,13 @@ Paste => HHHHHH => Paste => HHHHHHHHH
 
 Number of operations: 6
 """
-    
+
 
 def minOperations(n):
     if n <= 0:
         return 0
 
-    # Initialize an array to store the minimum number of operations for each number
+    # Init an array to store the minimum number of operations for each number
     dp = [float('inf')] * (n + 1)
 
     # Base case: It takes 0 operations to reach 1 H
@@ -33,16 +33,9 @@ def minOperations(n):
     for i in range(2, n + 1):
         # Iterate from 1 to i // 2 to find the minimum operations
         for j in range(1, (i // 2) + 1):
-            # If i is divisible by j, then we can copy j H characters and paste (i // j - 1) times
+            # If i is divisible by j, then we can copy j H characters
+            # and paste (i // j - 1) times
             if i % j == 0:
                 dp[i] = min(dp[i], dp[j] + i // j)
 
     return dp[n] if dp[n] != float('inf') else 0
-        
-            
-            
-            
-        
-
-
-    return op_number
