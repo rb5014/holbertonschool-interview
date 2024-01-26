@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """In a text file, there is a single character H.
  Your text editor can execute only two operations in this file:
  Copy All and Paste. Given a number n, write a method that calculates
@@ -18,24 +17,32 @@ Paste => HHHHHH => Paste => HHHHHHHHH
 
 Number of operations: 6
 """
-
+    
 
 def minOperations(n):
-    copy_all_n = 1
-    paste_n = 1
-    current_n = 1
-    op_number = 0
+    if n <= 0:
+        return 0
 
-    while (1):
-        if (current_n >= n):
-            break
-        if (current_n + copy_all_n <= n):
-            current_n += copy_all_n
-            paste_n = copy_all_n
-            copy_all_n = current_n
-            op_number += 2
-        elif (current_n + paste_n <= n):
-            current_n += paste_n
-            op_number += 1
+    # Initialize an array to store the minimum number of operations for each number
+    dp = [float('inf')] * (n + 1)
+
+    # Base case: It takes 0 operations to reach 1 H
+    dp[1] = 0
+
+    # Iterate from 2 to n to calculate the minimum operations for each number
+    for i in range(2, n + 1):
+        # Iterate from 1 to i // 2 to find the minimum operations
+        for j in range(1, (i // 2) + 1):
+            # If i is divisible by j, then we can copy j H characters and paste (i // j - 1) times
+            if i % j == 0:
+                dp[i] = min(dp[i], dp[j] + i // j)
+
+    return dp[n] if dp[n] != float('inf') else 0
+        
+            
+            
+            
+        
+
 
     return op_number
