@@ -4,4 +4,8 @@ heap_insert/*main.c
 .vscode
 */.vscode
 __pycache__
-
+*main.py
+*main.c
+*/tests/
+sandpiles/0-sandpiles
+sandpiles/Makefile
