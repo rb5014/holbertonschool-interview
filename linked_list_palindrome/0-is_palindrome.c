@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include "lists.h"
 /**
@@ -10,7 +9,7 @@
 
 int is_palindrome(listint_t **head)
 {
-	int *values = NULL, nb_values = 0;
+	int values[100], nb_values = 0;
 	listint_t *current = *head;
 
 
@@ -20,7 +19,6 @@ int is_palindrome(listint_t **head)
 	while (current != NULL)
 	{
 		nb_values++;
-		values = realloc(values, nb_values);
 		values[nb_values - 1] = current->n;
 		current = current->next;
 		if (current->n == values[nb_values - 1])
