@@ -1,34 +1,44 @@
 #!/usr/bin/python3
-""" Script that reads stdin line by line """
 
+"""
+Module 0-stats
+Exercice Log parsing
+"""
 
-tot_file_size = 0
+def main():
+    """
+    main
+    """
+    tot_file_size = 0
 
-# Dictionary status codes
-status_dict = {'200': 0,
-               '301': 0,
-               '400': 0,
-               '401': 0,
-               '403': 0,
-               '404': 0,
-               '405': 0,
-               '500': 0}
-count = 0
-while 1:
-    count += 1
-    input_string = input()
-    sep_string = input_string.split(" ")
-    # Add filesize to total size
-    tot_file_size += int(sep_string[-1])
-    if sep_string[-2] in status_dict.keys():
-        # Increment the count for the respective status code
-        status_dict[sep_string[-2]] += 1
+    # Dictionary status codes
+    status_dict = {'200': 0,
+                '301': 0,
+                '400': 0,
+                '401': 0,
+                '403': 0,
+                '404': 0,
+                '405': 0,
+                '500': 0}
+    count = 0
+    while 1:
+        count += 1
+        input_string = input()
+        sep_string = input_string.split(" ")
+        # Add filesize to total size
+        tot_file_size += int(sep_string[-1])
+        if sep_string[-2] in status_dict.keys():
+            # Increment the count for the respective status code
+            status_dict[sep_string[-2]] += 1
 
-    # Print each ten lines
-    if count == 10:
-        count = 0
-        print("File size: " + str(tot_file_size))
-        for status in sorted(status_dict.keys()):
-            if status_dict[status] > 0:
-                print("{}: {}".format(status, status_dict[status]))
-                status_dict[status] = 0
+        # Print each ten lines
+        if count == 10:
+            count = 0
+            print("File size: " + str(tot_file_size))
+            for status in sorted(status_dict.keys()):
+                if status_dict[status] > 0:
+                    print("{}: {}".format(status, status_dict[status]))
+                    status_dict[status] = 0
+
+if __name__ == "__main__":
+    main()
