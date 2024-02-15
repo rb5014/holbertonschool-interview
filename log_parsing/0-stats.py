@@ -8,7 +8,6 @@ import traceback
 import sys
 
 
-
 def main():
     """
     main
@@ -18,13 +17,13 @@ def main():
 
     # Dictionary status codes
     status_dict = {'200': 0,
-                '301': 0,
-                '400': 0,
-                '401': 0,
-                '403': 0,
-                '404': 0,
-                '405': 0,
-                '500': 0}
+                   '301': 0,
+                   '400': 0,
+                   '401': 0,
+                   '403': 0,
+                   '404': 0,
+                   '405': 0,
+                   '500': 0}
     try:
         count = 0
         while 1:
