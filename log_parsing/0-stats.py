@@ -52,7 +52,6 @@ def print_info(tot_file_size, status_dict):
     for status in sorted(status_dict.keys()):
         if status_dict[status] > 0:
             print("{}: {}".format(status, status_dict[status]))
-            status_dict[status] = 0
 
 
 if __name__ == "__main__":
