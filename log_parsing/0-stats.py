@@ -31,6 +31,8 @@ def main():
             count += 1
             input_string = input()
             sep_string = input_string.split(" ")
+            if len(sep_string) < 2:
+                continue
             # Add filesize to total size
             tot_file_size += int(sep_string[-1])
             if sep_string[-2] in status_dict.keys():
