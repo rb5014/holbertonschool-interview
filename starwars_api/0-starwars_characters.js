@@ -12,7 +12,7 @@ const movieId = process.argv[2];
 const url = `https://swapi-api.hbtn.io/api/films/${movieId}/`;
 
 /* Recursive function to process characters sequentially */
-function characterLoop(characters, index) {
+function characterLoop (characters, index) {
   /* If all characters have been processed, exit the function */
   if (index === characters.length) {
     return;
