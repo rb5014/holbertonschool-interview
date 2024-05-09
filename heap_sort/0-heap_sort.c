@@ -26,7 +26,7 @@ void heap_sort(int *array, size_t size)
 	if (!array || !size)
 		return;
 
-	start = (size_t) trunc((double) (size / 2));
+	start = size / 2;
 	end = size;
 
 	while (end > 1)
