@@ -17,25 +17,20 @@ Paste => HHHHHH => Paste => HHHHHHHHH
 
 Number of operations: 6
 """
-
+from math import sqrt
 
 def minOperations(n):
-    if n <= 0:
+    if n <= 1:
         return 0
 
-    # Init an array to store the minimum number of operations for each number
-    dp = [float('inf')] * (n + 1)
+    count = 0
+    for i in range(2, int(sqrt(n) + 1)):
+        while n % i == 0:  # i is a factor
+            count += i
+            n /= i
+            if n <= 1:
+                break
+    if n > 1:
+        count += int(n)
+    return count
 
-    # Base case: It takes 0 operations to reach 1 H
-    dp[1] = 0
-
-    # Iterate from 2 to n to calculate the minimum operations for each number
-    for i in range(2, n + 1):
-        # Iterate from 1 to i // 2 to find the minimum operations
-        for j in range(1, (i // 2) + 1):
-            # If i is divisible by j, then we can copy j H characters
-            # and paste (i // j - 1) times
-            if i % j == 0:
-                dp[i] = min(dp[i], dp[j] + i // j)
-
-    return dp[n] if dp[n] != float('inf') else 0
