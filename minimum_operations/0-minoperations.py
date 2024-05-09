@@ -19,6 +19,7 @@ Number of operations: 6
 """
 from math import sqrt
 
+
 def minOperations(n):
     if n <= 1:
         return 0
@@ -33,4 +34,3 @@ def minOperations(n):
     if n > 1:
         count += int(n)
     return count
-
