@@ -2,6 +2,7 @@
 #define BINARY_TREES_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
 /**
  * struct binary_tree_s - Binary tree node
@@ -20,12 +21,6 @@ typedef struct binary_tree_s
 } binary_tree_t;
 
 typedef struct binary_tree_s heap_t;
-
-typedef struct level_s
-{
-	int nb_nodes;
-	heap_t **nodes;
-} level_t;
 
 void binary_tree_print(const binary_tree_t *);
 

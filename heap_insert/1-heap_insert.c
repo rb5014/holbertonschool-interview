@@ -1,24 +1,81 @@
 #include "binary_trees.h"
 
-void add_level(level_t **levels, int *nb_levels)
+/**
+ * parent - find parent index of a given node in prio queue
+ * @i: index of the node
+ * Return: the parent's index
+*/
+size_t parent(size_t i)
 {
-	*levels = realloc(levels, sizeof(level_t) * (*nb_levels));
-	
+	return ((i - 1) / 2);
 }
 
-level_t *gen_level_repr(heap_t *root, int *nb_levels)
+/**
+ * swap_nodes_data - Swaps the data between two binary tree nodes
+ * @node1: Pointer to the first node
+ * @node2: Pointer to the second node
+ */
+void swap_nodes_data(binary_tree_t *node1, binary_tree_t *node2)
 {
-	level_t *levels = NULL;
-	level_t current_level;
+	int tmp_data;
 
-	if (!root)
+	/* Swap the data between the two nodes */
+	tmp_data = node1->n;
+	node1->n = node2->n;
+	node2->n = tmp_data;
+}
+
+/**
+ * heapify_up - Maintains the MAX heap property by
+ * moving a node upwards in the heap
+ * @node: Pointer to the node from which the heapification starts
+ *
+ * Description:
+ * This function moves the given node upwards in the heap, swapping it with its
+ * parent if necessary to maintain the heap property. It continues this process
+ * until either the node becomes the root of the heap or it satisfies the heap
+ * property.
+ * Return: Pointer to the new node containing the data inserted
+ */
+binary_tree_t *heapify_up(binary_tree_t *node)
+{
+	/* Continue as long as the node has a parent and violates the heap property */
+	while (node->parent && (node->n > node->parent->n))
+	{
+		/* Swap the data of the current node with its parent */
+		swap_nodes_data(node, node->parent);
+
+		node = node->parent; /* Move to the parent node for further heapification */
+	}
+	return (node);
+}
+
+/**
+ * find_parent_for_insertion - Find the parent node for inserting a new node
+ * @root: Pointer to the root node of the binary tree
+ *
+ * Return: Pointer to the parent node where the new node should be inserted
+ */
+binary_tree_t *find_parent_for_insertion(binary_tree_t *root)
+{
+	binary_tree_t *queue[100];
+	int front = -1, rear = 0;
+
+	/* If the tree is empty, return NULL */
+	if (root == NULL)
 		return (NULL);
 
-	*nb_levels++;
-	levels = malloc(sizeof(level_t) * (*nb_levels));
-	levels[*nb_levels - 1].nodes[0] = root;
-	levels[*nb_levels - 1].nb_nodes = 1;
+	queue[rear] = root;
 
+	while ((front != rear) && (rear < 99))
+	{
+		if (queue[++front] == NULL)
+			return (queue[parent(front)]);
+		queue[++rear] = queue[front]->left;
+		queue[++rear] = queue[front]->right;
+	}
+
+	return (NULL);
 }
 
 /**
@@ -33,10 +90,36 @@ level_t *gen_level_repr(heap_t *root, int *nb_levels)
 */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	int nb_levels;
-	static level_t *levels;
+	binary_tree_t *new_node, *parent;
 
-	if (!levels)
-		levels = gen_level_repr(*root, &nb_levels);
+	if (!root)
+		return (NULL);
+
+	/* Create the new node */
+	new_node = binary_tree_node(NULL, value);
+	if (new_node == NULL)
+		return (NULL);
+
+	/* If the heap is empty, set the new node as the root */
+	if (!(*root))
+	{
+		*root = new_node;
+		return (new_node);
+	}
+	/* Find the parent node where the new node should be inserted */
+	parent = find_parent_for_insertion(*root);
+	if (!parent)
+		return (free(new_node), NULL);
+	/* Insert the new node as a child of the found parent */
+	if (parent->left == NULL)
+		parent->left = new_node;
+	else
+		parent->right = new_node;
+	new_node->parent = parent;
+
+	/* Restore the heap property by percolating up */
+	new_node = heapify_up(new_node);
+
+	return (new_node);
 
 }
