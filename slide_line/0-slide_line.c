@@ -19,8 +19,7 @@ int slide_line(int *line, size_t size, int direction)
 	if (!line || !size ||
 	    ((direction != SLIDE_LEFT) && (direction != SLIDE_RIGHT)))
 		return (0);
-
-	while (second != end + direction)
+	while (first != end + direction)
 	{
 		if (line[first] == 0)
 		{
@@ -33,22 +32,24 @@ int slide_line(int *line, size_t size, int direction)
 		{
 			if (line[second] != 0)
 			{
+				line[start] = line[first];
 				if (line[second] == line[first])
 				{
-					line[start] = line[second] * 2;
-					if (first != start)
-						line[first] = 0;
-					first = second + direction;
+					line[start] += line[second];
+					line[second] = 0;
 				}
-				line[second] = 0;
+				line[first] = (first != start) ? 0 : line[first];
+				first = second;
 				start += direction;
 				break;
 			}
 			second += direction;
 		}
-		line[start] = line[first];
-		if (first != start)
-			line[first] = 0;
+		if (second == end + direction)
+		{
+			line[start] = line[first];
+			line[first] = (first != start) ? 0 : line[first];
+		}
 	}
 	return (1);
 }
