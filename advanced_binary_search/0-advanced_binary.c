@@ -28,27 +28,19 @@ int advanced_binary(int *array, size_t size, int value)
 
 	pivot = (size - 1) / 2;
 
-	if (size == 1)
-	{
-		if (value == array[pivot])
-			return (0);
-		else
-			return (-1);
-	}
+	if ((pivot == 0) && (value == array[pivot]))
+		return (0);
 
 	if (value > array[pivot])
 	{
 		ret = advanced_binary(&(array[pivot + 1]), size - pivot - 1, value);
-		if (ret == -1)
-			return (-1);
-		ret += pivot + 1;
+		if (ret != -1)
+			ret += pivot + 1;
 
 	}
 	else if (value <= array[pivot])
 	{
 		ret = advanced_binary(array, pivot + 1, value);
-		if (ret == -1)
-			return (-1);
 	}
 	return (ret);
 }
