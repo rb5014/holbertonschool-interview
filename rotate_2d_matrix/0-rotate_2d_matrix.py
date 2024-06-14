@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-import copy
-
 """
 Given an n x n 2D matrix, rotate it 90 degrees clockwise.
 
@@ -10,10 +8,12 @@ You can assume the matrix will have 2 dimensions and will not be empty.
 """
 def rotate_2d_matrix(matrix):
 
-    tmp = copy.deepcopy(matrix)
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            tmp[i][j] = matrix[len(matrix) - j - 1][i]
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            matrix[i][j] = tmp[i][j]
+    n = len(matrix)
+
+    # Transpose matrix
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # Reverse rows
+    for i in range(n):
+        matrix[i].reverse()
