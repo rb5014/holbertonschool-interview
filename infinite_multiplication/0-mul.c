@@ -38,7 +38,8 @@ void infinite_multiplication(char *n1, char *n2)
 	unsigned long result_len = len1 + len2;
 	char *result = malloc(result_len + 1);
 	long i, j;
-	unsigned long k;
+	unsigned long k, start = 0;
+	int carry, product;
 
 	if (result == NULL)
 		return;
@@ -50,11 +51,10 @@ void infinite_multiplication(char *n1, char *n2)
 	/* Perform multiplication digit by digit */
 	for (i = len1 - 1; i >= 0; i--)
 	{
-		int carry = 0;
-
+		carry = 0;
 		for (j = len2 - 1; j >= 0; j--)
 		{
-			int product = _atoi(n1[i]) * _atoi(n2[j]) +
+			product = _atoi(n1[i]) * _atoi(n2[j]) +
 						  (result[i + j + 1] - '0') + carry;
 
 			carry = product / 10;
@@ -63,7 +63,6 @@ void infinite_multiplication(char *n1, char *n2)
 		result[i] += carry;
 	}
 	/* Remove leading zeros */
-	unsigned long start = 0;
 
 	while (start < result_len - 1 && result[start] == '0')
 		start++;
@@ -83,11 +82,16 @@ void infinite_multiplication(char *n1, char *n2)
  */
 int main(int argc, char *argv[])
 {
+	char *n1;
+	char *n2;
+
 	if (argc != 3)
 		print_error_and_exit();
 
-	char *n1 = argv[1];
-	char *n2 = argv[2];
+	n1 = argv[1];
+	n2 = argv[2];
 
 	infinite_multiplication(n1, n2);
+
+	return (0);
 }
