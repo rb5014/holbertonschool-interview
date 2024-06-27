@@ -44,12 +44,11 @@ void infinite_multiplication(char *n1, char *n2)
 	if (result == NULL)
 		return;
 
-	/* Initialize the result array */
-	for (k = 0; k < result_len; k++)
+	for (k = 0; k < result_len; k++) /* Initialize the result array */
 		result[k] = '0';
+	result[result_len] = '\0'; /* terminate array of char with null char */
 
-	/* Perform multiplication digit by digit */
-	for (i = len1 - 1; i >= 0; i--)
+	for (i = len1 - 1; i >= 0; i--) /* Perform multiplication digit by digit */
 	{
 		carry = 0;
 		for (j = len2 - 1; j >= 0; j--)
@@ -63,7 +62,6 @@ void infinite_multiplication(char *n1, char *n2)
 		result[i] += carry;
 	}
 	/* Remove leading zeros */
-
 	while (start < result_len - 1 && result[start] == '0')
 		start++;
 	while (result[start])
@@ -72,6 +70,7 @@ void infinite_multiplication(char *n1, char *n2)
 		start++;
 	}
 	_putchar('\n');
+	free(result);
 }
 
 /**
