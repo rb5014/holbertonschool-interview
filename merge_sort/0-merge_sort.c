@@ -69,14 +69,14 @@ void top_down_split_merge(int *B, size_t iBegin, size_t iEnd, int *A)
  * copy_array - copy into the elements of A into work array B
  * @A: array to copy
  * @iBegin: starting index
- * @iEnd: ending index
+ * @n: n elements
  * @B: work array
 */
-void copy_array(int *A, size_t iBegin, size_t iEnd, int *B)
+void copy_array(int *A, size_t iBegin, size_t n, int *B)
 {
 	size_t k;
 
-	for (k = iBegin; k < iEnd; k++)
+	for (k = iBegin; k < n; k++)
 		B[k] = A[k];
 }
 
@@ -94,7 +94,7 @@ void copy_array(int *A, size_t iBegin, size_t iEnd, int *B)
 */
 void merge_sort(int *A, size_t n)
 {
-	int *B = malloc(n);  /* array B is a work array. */
+	int *B = malloc(sizeof(int) * n);  /* array B is a work array. */
 
 	if (!B)
 		return;
