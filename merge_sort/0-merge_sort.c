@@ -101,5 +101,6 @@ void merge_sort(int *A, size_t n)
 
 	copy_array(A, 0, n, B);		   /* one time copy of A[] to B[] */
 	top_down_split_merge(A, 0, n, B); /* sort data from B[] into A[] */
+	free(B);
 }
 
