@@ -10,11 +10,16 @@
 */
 void top_down_merge(int *B, size_t iBegin, size_t iMiddle, size_t iEnd, int *A)
 {
-
-	/*  Left source half is A[ iBegin:iMiddle-1]. */
-	/* Right source half is A[iMiddle:iEnd-1   ]. */
-	/* Result is            B[ iBegin:iEnd-1   ]. */
+	/*  Left source half is A[iBegin:iMiddle-1]. */
+	/* Right source half is A[iMiddle:iEnd-1]. */
+	/* Result is            B[iBegin:iEnd-1]. */
 	size_t i = iBegin, j = iMiddle, k;
+
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(&A[iBegin], iMiddle - iBegin);
+	printf("[right]: ");
+	print_array(&A[iMiddle], iEnd - iMiddle);
 
 	/* While there are elements in the left or right runs... */
 	for (k = iBegin; k < iEnd; k++)
@@ -31,6 +36,8 @@ void top_down_merge(int *B, size_t iBegin, size_t iMiddle, size_t iEnd, int *A)
 			j = j + 1;
 		}
 	}
+	printf("[Done]: ");
+	print_array(&B[iBegin], iEnd - iBegin);
 }
 
 /**
