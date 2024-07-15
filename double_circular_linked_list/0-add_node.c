@@ -32,6 +32,9 @@ List *create_node(char *str)
 		return (NULL);
 
 	new->str = strdup(str);
+	if (!new->str)
+		return (NULL);
+
 	new->prev = NULL;
 	new->next = NULL;
 
