@@ -1,5 +1,19 @@
 #include "list.h"
 
+/**
+ * insert_at_root - insert node at root
+ * @list: Double pointer to the list to modify
+ * @new: node to insert at root
+ * Return: pointer to newly inserted node (e.g. the root)
+*/
+List *insert_at_root(List **list, List *new)
+{
+	*list = new;
+	new->prev = new;
+	new->next = new;
+
+	return (new);
+}
 
 /**
  * create_node - create a new node with string data
@@ -33,7 +47,7 @@ List *create_node(char *str)
  */
 List *add_node_end(List **list, char *str)
 {
-	List *root, *new;
+	List *root, *last, *new;
 
 	if (!list || !str)
 		return (NULL);
@@ -44,22 +58,15 @@ List *add_node_end(List **list, char *str)
 
 	root = *list;
 
-	if (!root)				/* List empty */
-		*list = new;
-	else if (!root->prev)  /* Only one node */
-	{
-		root->prev = new;
-		root->next = new;
-		new->prev = root;
-		new->next = root;
-	}
-	else					/* At least 2 nodes*/
-	{
-		root->prev->next = new;
-		new->prev = root->prev;
-		new->next = root;
-		root->prev = new;
-	}
+	if (!root)
+		return (insert_at_root(list, new));
+
+	last = root->prev;
+
+	last->next = new;
+	new->prev = last;
+	new->next = root;
+	root->prev = new;
 
 	return (new);
 
@@ -75,7 +82,7 @@ List *add_node_end(List **list, char *str)
  */
 List *add_node_begin(List **list, char *str)
 {
-	List *root, *new;
+	List *root, *last, *new;
 
 	if (!list || !str)
 		return (NULL);
@@ -86,24 +93,16 @@ List *add_node_begin(List **list, char *str)
 
 	root = *list;
 
-	if (!root)				/* List empty */
-		*list = new;
-	else if (!root->next)	/* Only one node */
-	{
-		new->prev = root;
-		new->next = root;
-		root->prev = new;
-		root->next = new;
-		*list = new;
-	}
-	else						/* At least 2 nodes*/
-	{
-		root->prev->next = new;
-		new->prev = root->prev;
-		new->next = root;
-		new->next->prev = new;
-		*list = new;
-	}
+	if (!root)
+		return (insert_at_root(list, new));
+
+	last = root->prev;
+
+	last->next = new;
+	new->prev = last;
+	new->next = root;
+	new->next->prev = new;
+	*list = new;
 
 	return (new);
 }
