@@ -22,6 +22,9 @@ Return: the perimeter
 
 
 def island_perimeter(grid):
+    """
+    Doc explained before
+    """
     perimeter = 0
 
     for i in range(len(grid)):
